@@ -1,24 +1,30 @@
 
 document.addEventListener("DOMContentLoaded", function () {
-    const applyBtn = document.getElementById("apply-btn");
+    const applyButton = document.getElementById("apply-btn");
+    const randomButton = document.getElementById("randomColorBtn");
     const colorInput = document.getElementById("color-input");
-    const box = document.getElementById("box");
-    const randomColorBtn = document.getElementById("randomColorBtn");
+    const colorBox = document.getElementById("box");
 
-    if (!applyBtn || !colorInput || !box || !randomColorBtn) {
+    if (!applyButton || !randomButton || !colorInput || !colorBox) {
         console.error("Homepage initialization failed: missing HTML elements.");
         return;
     }
 
-    applyBtn.addEventListener("click", function () {
-        box.style.backgroundColor = colorInput.value;
-    });
+    function applyColor(color) {
+        colorBox.style.backgroundColor = color;
+    }
 
-    randomColorBtn.addEventListener("click", function () {
-        const color = "#" + Math.floor(Math.random() * 16777215)
+    function generateRandomColor() {
+        return "#" + Math.floor(Math.random() * 16777215)
             .toString(16)
             .padStart(6, "0");
+    }
 
-        box.style.backgroundColor = color;
+    applyButton.addEventListener("click", function () {
+        applyColor(colorInput.value);
+    });
+
+    randomButton.addEventListener("click", function () {
+        applyColor(generateRandomColor());
     });
 });
